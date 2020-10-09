@@ -19,19 +19,20 @@ with DAG(
    default_args=default_args
    ) as dag:
    
-# Definindo as tarefas que a DAG vai executar, nesse caso a execução de dois programas Python, chamando sua execução por comandos bash
-t1 = BashOperator(
-   task_id='first_etl',
-   bash_command="""
-   cd ./etl_scripts/
-   python3 my_first_etl_script.py
-   """)
-t2 = BashOperator(
-   task_id='second_etl',
-   bash_command="""
-   cd ./etl_scripts/
-   python3 my_second_etl_script.py
-   """)
-   
-# Definindo o padrão de execução, nesse caso executamos t1 e depois t2
-t1 >> t2
+   # Definindo as tarefas que a DAG vai executar, nesse caso a execução de dois programas Python, chamando sua execução por comandos bash
+   t1 = BashOperator(
+      task_id='first_etl',
+      bash_command="""
+      cd ./etl_scripts/
+      python3 my_first_etl_script.py
+      """)
+
+   t2 = BashOperator(
+      task_id='second_etl',
+      bash_command="""
+      cd ./etl_scripts/
+      python3 my_second_etl_script.py
+      """)
+      
+   # Definindo o padrão de execução, nesse caso executamos t1 e depois t2
+   t1 >> t2
